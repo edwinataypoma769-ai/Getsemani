@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getsemaní Kids · Asistencia</title>
+  <link rel="icon" href="img/favicon.png">
+
+  <!-- Tipografías: Baloo 2 (títulos) y Nunito (texto). Si no cargan, se usan las de respaldo. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ============================================================
+       PANTALLA 1 · INICIO
+       Edita aquí el párrafo de la iglesia y la dirección.
+       ============================================================ -->
+  <section id="view-home" class="view home" hidden>
+    <button class="admin-pill" type="button" data-action="admin">Administrador</button>
+
+    <div class="canvas">
+      <div class="arch">
+        <img class="arch-logo" src="img/logo.webp" alt="Logo de Asambleas de Dios Getsemaní">
+
+        <div class="arch-scroll">
+          <h1>Asambleas de Dios Getsemaní Chupaca</h1>
+          <p>
+            Somos una iglesia cristiana de las Asambleas de Dios del Perú, en Chupaca.
+            Creemos en Jesús, en la Biblia y en el poder del Espíritu Santo.
+            En Getsemaní Kids, los niños aprenden la Palabra de Dios con alabanza,
+            juegos y cariño, en cinco salones.
+          </p>
+
+          <h2>Cómo llegar</h2>
+          <p class="addr">Pedro Aliaga 231, Chupaca, Junín</p>
+          <a class="btn-map"
+             href="https://www.google.com/maps/search/?api=1&query=Iglesia+Getsemani+Asambleas+de+Dios+Pedro+Aliaga+231+Chupaca"
+             target="_blank" rel="noopener">Abrir en Google Maps</a>
+        </div>
+
+        <a class="cta" href="#/salones">Entrar a los salones</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PANTALLA 2 · LOS 5 SALONES
+       ============================================================ -->
+  <section id="view-salones" class="view" hidden>
+    <div class="demo-banner" data-demo hidden>
+      Modo demostración: los datos se guardan solo en este navegador.
+      Para usar Supabase, completa <code>js/config.js</code>.
+    </div>
+
+    <header class="bar">
+      <a class="back" href="#/" aria-label="Volver al inicio">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <img class="bar-logo" src="img/logo.webp" alt="">
+      <div class="ttl">
+        <h1>Getsemaní Kids</h1>
+        <p>Elige un salón</p>
+      </div>
+      <button class="admin-btn" type="button" data-action="admin">Administrador</button>
+    </header>
+
+    <main class="salones">
+      <a class="salon-tile" href="#/salon/eden">
+        <img src="img/salon-eden.webp" alt="Salón Eden">
+        <span class="count" data-count="eden">…</span>
+      </a>
+      <a class="salon-tile" href="#/salon/betel">
+        <img src="img/salon-betel.webp" alt="Salón Betel">
+        <span class="count" data-count="betel">…</span>
+      </a>
+      <a class="salon-tile" href="#/salon/sinai">
+        <img src="img/salon-sinai.webp" alt="Salón Sínai">
+        <span class="count" data-count="sinai">…</span>
+      </a>
+      <a class="salon-tile" href="#/salon/sion">
+        <img src="img/salon-sion.webp" alt="Salón Sión">
+        <span class="count" data-count="sion">…</span>
+      </a>
+      <a class="salon-tile" href="#/salon/emaus">
+        <img src="img/salon-emaus.webp" alt="Salón Emaús">
+        <span class="count" data-count="emaus">…</span>
+      </a>
+    </main>
+  </section>
+
+  <!-- ============================================================
+       PANTALLA 3 · LISTA Y ASISTENCIA DE UN SALÓN
+       (la lista de estudiantes la dibuja js/app.js)
+       ============================================================ -->
+  <section id="view-salon" class="view" hidden>
+    <div class="demo-banner" data-demo hidden>
+      Modo demostración: los datos se guardan solo en este navegador.
+      Para usar Supabase, completa <code>js/config.js</code>.
+    </div>
+
+    <header class="bar">
+      <a class="back" href="#/salones" aria-label="Volver a los salones">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <img id="salon-thumb" class="thumb" src="" alt="">
+      <div class="ttl">
+        <h1 id="salon-title">Salón</h1>
+        <p id="salon-sub"></p>
+      </div>
+      <button class="admin-btn" type="button" data-action="admin">Administrador</button>
+    </header>
+
+    <div id="admin-strip" class="admin-strip" hidden>
+      <span>Modo administrador</span>
+      <button type="button" class="btn small" data-action="add">Agregar estudiante</button>
+    </div>
+
+    <div class="wrap">
+      <div class="toolbar">
+        <label class="date">
+          <span>Fecha de la clase</span>
+          <input type="date" id="fecha">
+        </label>
+        <div class="quick">
+          <button type="button" class="btn ghost small" data-action="all-present">Todos presentes</button>
+          <button type="button" class="btn ghost small" data-action="clear">Limpiar</button>
+        </div>
+      </div>
+
+      <div class="summary" id="summary" aria-live="polite">
+        <span class="chip p">Presentes <b id="n-p">0</b></span>
+        <span class="chip f">Faltas <b id="n-f">0</b></span>
+        <span class="chip n">Sin marcar <b id="n-n">0</b></span>
+      </div>
+
+      <div id="lista"></div>
+    </div>
+
+    <div class="savebar">
+      <span id="save-state" class="save-state"></span>
+      <button type="button" id="btn-excel" class="btn ghost" data-action="excel">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Descargar Excel
+      </button>
+      <button type="button" id="btn-save" class="btn primary" data-action="save">Guardar asistencia</button>
+    </div>
+  </section>
+
+  <!-- Ventana emergente (inicio de sesión, agregar/editar/quitar estudiante) -->
+  <dialog id="dlg"></dialog>
+
+  <!-- Librerías externas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Tu configuración y la lógica del sistema -->
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
